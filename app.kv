@@ -1,0 +1,100 @@
+BoxLayout:
+    id: main_box
+    Popup:
+        id: popup
+        size_hint: (.6, .4)
+        title: "Warning"
+        on_parent:
+            # Make popup disappear immediately
+            if self.parent == main_box: self.parent.remove_widget(self)
+        BoxLayout:
+            orientation: 'vertical'
+            Label:
+                text: 'Book file not exist!'
+                size_hint_y: None
+            Button:
+                text: 'Close'
+                size_hint: 0.5, 0.1
+                pos_hint: {'center_x': 0.5}
+                on_release: app.close_popup()
+    BoxLayout:
+        orientation: 'horizontal'
+        # left
+        BoxLayout:
+            orientation: 'vertical'
+            size_hint_x: 0.25
+            # 左侧
+            Label:
+                text: 'Sort by:'
+
+            Spinner:
+                text: 'Author'
+                values: ['Author', 'Title']
+                on_text: app.change_state(self.text)
+
+            Label:
+                text: 'Add New Book...'
+
+            Label:
+                text: 'Title:'
+
+            TextInput:
+                text: ''
+                id: title_input
+                write_tab: False
+
+            Label:
+                text: 'Author:'
+
+            TextInput:
+                text: ''
+                id: author_input
+                write_tab: False
+
+            Label:
+                text: 'Pages:'
+
+            TextInput:
+                text: ''
+                id: pages_input
+                write_tab: False
+
+            Button:
+                text: 'Add Book'
+                id: add_book
+                on_press: app.add_book_button_press(self)
+
+            Button:
+                text: 'Clear'
+                id: clear
+                on_press: app.clear_button_press(self)
+
+        # right
+        BoxLayout:
+            orientation: 'vertical'
+
+            # right top
+            BoxLayout:
+                orientation: 'vertical'
+                size_hint_y: 0.1
+
+                Label:
+                    id: need_pages_label
+                    text: ''
+
+            # right middle
+            GridLayout:
+                id: book_box
+                cols: 1
+                orientation: 'lr-tb'
+
+
+            # right bottom
+            BoxLayout:
+                orientation: 'vertical'
+                size_hint_y: 0.1
+                pos_hint: {'bottom': 1}
+
+                Label:
+                    id: hit_label
+                    text: ''
